@@ -1,4 +1,5 @@
+setuptools
 coloredlogs
 numpy
 scipy
-PyGobject
+# PyGobject
