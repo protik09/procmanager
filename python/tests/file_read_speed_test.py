@@ -63,7 +63,7 @@ if __name__ == "__main__":
         end = time.time()
     timer = (end-start)/_num_iters
     timer = timer * 10e6
-    main_logger.info(f"The stadard file read takes {time} us")
+    main_logger.info(f"The stadard file read takes {timer} us")
 
     if int(sys.version_info[0]) == 3 and int(sys.version_info[1]) < 8:
         start = time.clock()
@@ -77,5 +77,5 @@ if __name__ == "__main__":
         end = time.time()
     timer = (end-start)/_num_iters
     timer = timer * 10e6
-    main_logger.info(f"The mmap file read takes {time} us")
+    main_logger.info(f"The mmap file read takes {timer} us")
 
