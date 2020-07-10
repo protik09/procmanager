@@ -10,7 +10,7 @@ import sys
 import argparse
 import coloredlogs
 import logging
-import timeit
+import time
 # import re
 # import psutil
 
@@ -46,8 +46,18 @@ if __name__ == "__main__":
     else:
         coloredlogs.install(level='INFO')
 
-    main_logger.debug("Welcome to the File Read test program module.")
+    main_logger.info("Welcome to the File Read test program module.")
 
-    # psutil.cpu_count()
-    print(timeit.timeit("std_file_read()", setup="from __main__ import test", number=10000))
-    print(timeit.timeit("mmap_file_read()", setup="from __main__ import test", umber=10000))
+    start = time.clock()
+    for i in range(1000):
+        function()
+    end = time.clock()
+    time = (end-start)/1000
+    main_logger.info(f"The stadard file read takes {time} s")
+
+    start = time.clock()
+    for i in range(1000):
+        function()
+    end = time.clock()
+    time = (end-start)/1000
+    main_logger.info(f"The stadard file read takes {time} s")
