@@ -11,10 +11,13 @@ import argparse
 import coloredlogs
 import logging
 import time
+import platform
+import mmap
 # import re
 # import psutil
 
 _cpuinfo_path = f"/proc/cpuinfo"
+_num_iters = 100000
 
 def std_file_read():
     """
@@ -48,16 +51,31 @@ if __name__ == "__main__":
 
     main_logger.info("Welcome to the File Read test program module.")
 
-    start = time.clock()
-    for i in range(1000):
-        function()
-    end = time.clock()
-    time = (end-start)/1000
-    main_logger.info(f"The stadard file read takes {time} s")
+    if int(sys.version_info[0]) == 3 and int(sys.version_info[1]) < 8:
+        start = time.clock()
+    else:
+        start = time.time()
+    for i in range(_num_iters):
+        std_file_read()
+    if int(sys.version_info[0]) == 3 and int(sys.version_info[1]) < 8:
+        end = time.clock()
+    else:
+        end = time.time()
+    timer = (end-start)/_num_iters
+    timer = timer * 10e6
+    main_logger.info(f"The stadard file read takes {time} us")
 
-    start = time.clock()
-    for i in range(1000):
-        function()
-    end = time.clock()
-    time = (end-start)/1000
-    main_logger.info(f"The stadard file read takes {time} s")
+    if int(sys.version_info[0]) == 3 and int(sys.version_info[1]) < 8:
+        start = time.clock()
+    else:
+        start = time.time()
+    for i in range(_num_iters):
+        mmap_file_read()
+    if int(sys.version_info[0]) == 3 and int(sys.version_info[1]) < 8:
+        end = time.clock()
+    else:
+        end = time.time()
+    timer = (end-start)/_num_iters
+    timer = timer * 10e6
+    main_logger.info(f"The mmap file read takes {time} us")
+
